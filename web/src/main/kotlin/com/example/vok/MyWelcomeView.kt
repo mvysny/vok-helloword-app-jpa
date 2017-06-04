@@ -9,13 +9,11 @@ import com.vaadin.ui.themes.ValoTheme
 @AutoView("")
 class MyWelcomeView: VerticalLayout(), View {
     init {
-        verticalLayout {
-            label("Hello, Vaadin-on-Kotlin!") {
-                styleName = ValoTheme.LABEL_H1
-            }
-            button("My Blog", { navigateToView<ArticlesView>() }) {
-                styleName = ValoTheme.BUTTON_LINK
-            }
+        label("Hello, Vaadin-on-Kotlin!") {
+            styleName = ValoTheme.LABEL_H1
+        }
+        button("My Blog", { navigateToView<ArticlesView>() }) {
+            styleName = ValoTheme.BUTTON_LINK
         }
     }
     override fun enter(event: ViewChangeListener.ViewChangeEvent?) {
