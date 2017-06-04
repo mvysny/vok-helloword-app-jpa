@@ -15,10 +15,6 @@ class CreateArticleView: VerticalLayout(), View {
         label("New Article") {
             styleName = ValoTheme.LABEL_H1
         }
-        label {
-            styleName = ValoTheme.LABEL_FAILURE
-            binder.setStatusLabel(this)
-        }
         textField("Title") {
             bind(binder).bind(Article::title)
         }
