@@ -1,6 +1,7 @@
 package com.example.vok
 
 import com.github.vok.karibudsl.autoViewProvider
+import com.github.vok.karibudsl.isMargin
 import com.vaadin.annotations.Push
 import com.vaadin.annotations.Theme
 import com.vaadin.annotations.Title
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory
  * The Vaadin UI which demoes all the features. If not familiar with Vaadin, please check out the Vaadin tutorial first.
  * @author mvy
  */
-@Theme("valo")
+@Theme("mytheme")
 @Title("Vaadin On Kotlin")
 @Push(transport = Transport.WEBSOCKET_XHR)
 class MyUI : UI() {
@@ -51,6 +52,9 @@ class MyUI : UI() {
 }
 
 private class Content: VerticalLayout(), ViewDisplay {
+    init {
+        setSizeFull(); isMargin = false
+    }
     override fun showView(view: View?) {
         removeAllComponents()
         addComponent(view as Component)

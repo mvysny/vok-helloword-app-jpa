@@ -12,9 +12,11 @@ import com.vaadin.ui.themes.ValoTheme
 @AutoView("")
 class WelcomeView: VerticalLayout(), View {
     init {
+        setSizeFull()
+        isMargin = false
         verticalLayout {
             alignment = Alignment.MIDDLE_CENTER
-            isMargin = true; isSpacing = true; defaultComponentAlignment = Alignment.MIDDLE_CENTER
+            isMargin = false; isSpacing = true; defaultComponentAlignment = Alignment.MIDDLE_CENTER
             label("Yay! You're on Vaadin-on-Kotlin!") {
                 styleName = ValoTheme.LABEL_H1
             }
