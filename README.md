@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mvysny/vok-helloword-app.svg?branch=master)](https://travis-ci.org/mvysny/vok-helloword-app)
+
 # Vaadin-on-Kotlin Example App / Archetype
 
 Template for a simple Vaadin-on-Kotlin application that only requires a Servlet 3.0 container to run.
@@ -23,15 +25,10 @@ To compile the entire project, run `./gradlew`.
 
 To run the application, run `./gradlew web:appRun` (run the `appRun` task in the `web` Gradle module) and open http://localhost:8080/ .
 
-
-@todo mavi update
-
-
-
 To produce a deployable production mode WAR:
-- change `productionMode` to `true` in the servlet class configuration (located in the [MyUI.kt](src/main/kotlin/org/test/MyUI.kt) file)
+- change `productionMode` to `true` in the servlet class configuration (located in the [MyUI.kt](web/src/main/kotlin/com/example/vok/MyUI.kt) file)
 - run `./gradlew`
-- You will find the WAR file in `build/libs/karibu-helloworld-application.war`
+- You will find the WAR file in `web/build/libs/web.war`
 
 This will allow you to quickly start the example app and allow you to do some basic modifications.
 For real development we recommend Intellij IDEA Ultimate, please see below for instructions.
@@ -74,7 +71,7 @@ instance, without having to restart Tomcat.
 1. First, download Tomcat and register it into your Intellij IDEA properly: https://www.jetbrains.com/help/idea/2017.1/defining-application-servers-in-intellij-idea.html
 2. Then just open this project in Intellij, simply by selecting `File / Open...` and click on the
    `build.gradle` file. When asked, select "Open as Project".
-2. You can then create a launch configuration which will launch this example app in Tomcat with Intellij: just
+2. You can then create a launch configuration which will launch the `web` module as `exploded` in Tomcat with Intellij: just
    scroll to the end of this tutorial: https://kotlinlang.org/docs/tutorials/httpservlets.html
 3. Start your newly created launch configuration in Debug mode. This way, you can modify the code
    and press `Ctrl+F9` to hot-redeploy the code. This only redeploys java code though, to
