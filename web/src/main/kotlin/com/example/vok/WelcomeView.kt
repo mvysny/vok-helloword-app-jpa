@@ -3,7 +3,7 @@ package com.example.vok
 import com.github.vok.karibudsl.*
 import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
-import com.vaadin.server.ClassResource
+import com.vaadin.server.ThemeResource
 import com.vaadin.shared.Version
 import com.vaadin.ui.Alignment
 import com.vaadin.ui.VerticalLayout
@@ -20,7 +20,7 @@ class WelcomeView: VerticalLayout(), View {
             label("Yay! You're on Vaadin-on-Kotlin!") {
                 styleName = ValoTheme.LABEL_H1
             }
-            image(resource = ClassResource("chucknorris.jpg"))
+            image(resource = ThemeResource("images/chucknorris.jpg"))
             label { html("<strong>Vaadin version: </strong> ${Version.getFullVersion()}") }
             label { html("<strong>Kotlin version: </strong> $kotlinVersion") }
         }
