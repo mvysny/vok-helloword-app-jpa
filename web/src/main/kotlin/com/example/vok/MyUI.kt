@@ -35,10 +35,10 @@ class MyUI : UI() {
         navigator = Navigator(this, content as ViewDisplay)
         navigator.addProvider(autoViewProvider)
         setErrorHandler { e ->
-            log.error("Vaadin UI uncaught exception $e", e)
+            log.error("Vaadin UI uncaught exception ${e.throwable}", e.throwable)
             // when the exception occurs, show a nice notification
             Notification("Oops", "An error occurred, and we are really sorry about that. Already working on the fix!", Notification.Type.ERROR_MESSAGE).apply {
-                styleName = ValoTheme.NOTIFICATION_CLOSABLE
+                styleName = "${ValoTheme.NOTIFICATION_CLOSABLE} ${ValoTheme.NOTIFICATION_ERROR}"
                 position = Position.TOP_CENTER
                 show(Page.getCurrent())
             }
