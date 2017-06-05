@@ -1,11 +1,9 @@
 package com.example.vok
 
-import com.github.vok.framework.jpaDataProvider
+import com.github.vok.framework.*
 import com.github.vok.karibudsl.*
-import com.vaadin.navigator.View
-import com.vaadin.navigator.ViewChangeListener
-import com.vaadin.ui.Grid
-import com.vaadin.ui.VerticalLayout
+import com.vaadin.navigator.*
+import com.vaadin.ui.*
 import com.vaadin.ui.renderers.ButtonRenderer
 import com.vaadin.ui.themes.ValoTheme
 
@@ -26,6 +24,12 @@ class ArticlesView: VerticalLayout(), View {
             showColumns(Article::id, Article::title, Article::text)
             addColumn({ "Show" }, ButtonRenderer<Article>({ event -> ArticleView.navigateTo(event.item.id!!) }))
             addColumn({ "Edit" }, ButtonRenderer<Article>({ event -> EditArticleView.navigateTo(event.item.id!!) }))
+            addColumn({ "Destroy" }, ButtonRenderer<Article>({ event ->
+                confirmDialog {
+                    db { em.deleteById<Article>(event.item.id!!) }
+                    this@grid.dataProvider.refreshAll()
+                }
+            }))
         }
     }
     override fun enter(event: ViewChangeListener.ViewChangeEvent?) {
