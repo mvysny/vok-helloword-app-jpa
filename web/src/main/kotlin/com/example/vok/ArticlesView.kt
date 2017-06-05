@@ -15,12 +15,15 @@ class ArticlesView: VerticalLayout(), View {
     private val grid: Grid<Article>
     init {
         setSizeFull()
+        label("Listing Articles") {
+            styleName = ValoTheme.LABEL_H1
+        }
         button("New Article", { navigateToView<CreateArticleView>() }) {
             styleName = ValoTheme.BUTTON_LINK
         }
-        grid = grid(Article::class, "Listing articles", dataSource) {
-            expandRatio = 1f
-            setSizeFull()
+        grid = grid(Article::class, null, dataSource) {
+            expandRatio = 1f; setSizeFull()
+            showColumns(Article::id, Article::title, Article::text)
             addColumn({ "Show" }, ButtonRenderer<Article>({ event -> ArticleView.navigateTo(event.item.id!!) }))
             addColumn({ "Edit" }, ButtonRenderer<Article>({ event -> EditArticleView.navigateTo(event.item.id!!) }))
         }
