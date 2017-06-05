@@ -22,7 +22,7 @@ class WelcomeView: VerticalLayout(), View {
             }
             image(resource = ThemeResource("images/chucknorris.jpg"))
             label { html("<strong>Vaadin version: </strong> ${Version.getFullVersion()}") }
-            label { html("<strong>Kotlin version: </strong> $kotlinVersion") }
+            label { html("<strong>Kotlin version: </strong> ${KotlinVersion.CURRENT}") }
         }
     }
     override fun enter(event: ViewChangeListener.ViewChangeEvent?) {
