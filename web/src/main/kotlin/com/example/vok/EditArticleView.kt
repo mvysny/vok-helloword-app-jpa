@@ -9,7 +9,7 @@ import com.vaadin.ui.VerticalLayout
 import com.vaadin.ui.themes.ValoTheme
 
 @AutoView
-class UpdateArticleView: VerticalLayout(), View {
+class EditArticleView : VerticalLayout(), View {
     private val binder = beanValidationBinder<Article>()
     private var article: Article? = null
     init {
@@ -46,6 +46,6 @@ class UpdateArticleView: VerticalLayout(), View {
     }
 
     companion object {
-        fun navigateTo(articleId: Long) = navigateToView<UpdateArticleView>(articleId.toString())
+        fun navigateTo(articleId: Long) = navigateToView<EditArticleView>(articleId.toString())
     }
 }

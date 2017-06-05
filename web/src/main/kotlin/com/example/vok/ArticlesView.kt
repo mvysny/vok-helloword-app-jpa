@@ -22,7 +22,7 @@ class ArticlesView: VerticalLayout(), View {
             expandRatio = 1f
             setSizeFull()
             addColumn({ "Show" }, ButtonRenderer<Article>({ event -> ArticleView.navigateTo(event.item.id!!) }))
-            addColumn({ "Edit" }, ButtonRenderer<Article>({ event -> UpdateArticleView.navigateTo(event.item.id!!) }))
+            addColumn({ "Edit" }, ButtonRenderer<Article>({ event -> EditArticleView.navigateTo(event.item.id!!) }))
         }
     }
     override fun enter(event: ViewChangeListener.ViewChangeEvent?) {
