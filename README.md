@@ -21,7 +21,7 @@ The app will be running on http://localhost:8080/
 
 ## The 'complete' sources
 
-You can switch the git branch from 'master' to ['complete'](tree/complete), to see the outcome application of the
+You can switch the git branch from 'master' to ['complete'](../../tree/complete), to see the outcome application of the
 [Vaadin-on-Kotlin Getting Started](http://www.vaadinonkotlin.eu/gettingstarted.html) tutorial. 
 
 # Workflow
