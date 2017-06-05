@@ -6,6 +6,7 @@ import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
 import com.vaadin.ui.Grid
 import com.vaadin.ui.VerticalLayout
+import com.vaadin.ui.renderers.ButtonRenderer
 import com.vaadin.ui.themes.ValoTheme
 
 @AutoView
@@ -20,6 +21,8 @@ class ArticlesView: VerticalLayout(), View {
         grid = grid(Article::class, "Listing articles", dataSource) {
             expandRatio = 1f
             setSizeFull()
+            addColumn({ "Show" }, ButtonRenderer<Article>({ event -> ArticleView.navigateTo(event.item.id!!) }))
+            addColumn({ "Edit" }, ButtonRenderer<Article>({ event -> UpdateArticleView.navigateTo(event.item.id!!) }))
         }
     }
     override fun enter(event: ViewChangeListener.ViewChangeEvent?) {
