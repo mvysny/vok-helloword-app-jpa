@@ -50,7 +50,7 @@ dependencies {
     compile('org.hibernate:hibernate-hikaricp:5.2.6.Final') {
         exclude group: 'javax.enterprise'
     }
-    compile 'com.h2database:h2:1.4.193'
+    compile 'com.h2database:h2:1.4.195'
 
     // REST
     compile 'org.jboss.resteasy:resteasy-servlet-initializer:3.0.19.Final'

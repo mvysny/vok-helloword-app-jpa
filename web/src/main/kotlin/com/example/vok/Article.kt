@@ -1,6 +1,7 @@
 package com.example.vok
 
 import com.github.vok.framework.db
+import org.hibernate.annotations.Cascade
 import org.hibernate.validator.constraints.Length
 import java.io.Serializable
 import javax.persistence.*
@@ -16,7 +17,10 @@ data class Article(
         @field:Length(min = 5)
         var title: String? = null,
 
-        var text: String? = null
+        var text: String? = null,
+
+        @OneToMany(mappedBy = "article")
+        var comments: List<Comment> = mutableListOf()
 ) : Serializable {
     companion object {
         fun find(id: Long): Article? = db { em.find(Article::class.java, id) }
