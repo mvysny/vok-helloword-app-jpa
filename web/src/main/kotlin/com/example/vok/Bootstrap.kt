@@ -52,7 +52,7 @@ class Bootstrap: ServletContextListener {
             }
 
             override fun annotations(): Array<out Class<out Annotation>> = arrayOf(Entity::class.java)
-        }).detect()
+        }).detect("com.example")
         log.info("Auto-detected JPA entities: ${entities.map { it.simpleName }}")
         VaadinOnKotlin.entityManagerFactory = Persistence.createEntityManagerFactory("sample", mapOf(AvailableSettings.LOADED_CLASSES to entities))
     }
