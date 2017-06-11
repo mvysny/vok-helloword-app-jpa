@@ -17,9 +17,10 @@ data class Comment(
 
         @field:NotNull
         @field:Length(min = 3)
-        var body: String? = null,
+        var body: String? = null
+) : Serializable {
 
         @ManyToOne
         @JoinColumn(name = "article_id")
         var article: Article? = null
-) : Serializable
+}

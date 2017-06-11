@@ -17,11 +17,12 @@ data class Article(
         @field:Length(min = 5)
         var title: String? = null,
 
-        var text: String? = null,
-
-        @OneToMany(mappedBy = "article", cascade = arrayOf(CascadeType.REMOVE))
-        var comments: List<Comment> = mutableListOf()
+        var text: String? = null
 ) : Serializable {
+
+    @OneToMany(mappedBy = "article", cascade = arrayOf(CascadeType.REMOVE))
+    var comments: List<Comment> = mutableListOf()
+
     companion object {
         fun find(id: Long): Article? = db { em.find(Article::class.java, id) }
     }

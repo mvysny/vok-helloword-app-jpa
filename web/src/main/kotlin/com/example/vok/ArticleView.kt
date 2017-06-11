@@ -53,11 +53,12 @@ class ArticleView: VerticalLayout(), View {
         refreshComments()
     }
     private fun createComment() {
-        val comment = Comment(article = article)
+        val comment = Comment()
         if (!commentBinder.validate().isOk || !commentBinder.writeBeanIfValid(comment)) {
             createComment.componentError = UserError("There are invalid fields")
         } else {
             createComment.componentError = null
+            comment.article = article
             db { em.persist(comment) }
             refreshComments()
             commentBinder.readBean(Comment())  // this clears the comment fields
