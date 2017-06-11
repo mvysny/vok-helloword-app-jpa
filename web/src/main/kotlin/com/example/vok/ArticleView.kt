@@ -2,13 +2,8 @@ package com.example.vok
 
 import com.github.vok.framework.db
 import com.github.vok.karibudsl.*
-import com.vaadin.navigator.View
-import com.vaadin.navigator.ViewChangeListener
-import com.vaadin.server.UserError
-import com.vaadin.ui.Button
-import com.vaadin.ui.HasComponents
-import com.vaadin.ui.Label
-import com.vaadin.ui.VerticalLayout
+import com.vaadin.navigator.*
+import com.vaadin.ui.*
 import com.vaadin.ui.themes.ValoTheme
 
 @AutoView
@@ -17,8 +12,7 @@ class ArticleView: VerticalLayout(), View {
     private lateinit var title: Label
     private lateinit var text: Label
     private val comments: CommentsComponent
-    private val commentBinder = beanValidationBinder<Comment>()
-    private lateinit var createComment: Button
+    private val newComment: NewCommentForm
     init {
         formLayout {
             title = label {
@@ -28,16 +22,9 @@ class ArticleView: VerticalLayout(), View {
                 caption = "Text:"
             }
         }
-        comments = comments()
-        formLayout {
-            caption = "Add a comment:"
-            textField("Commenter:") {
-                bind(commentBinder).bind(Comment::commenter)
-            }
-            textField("Body:") {
-                bind(commentBinder).bind(Comment::body)
-            }
-            createComment = button("Create", { createComment() })
+        comments = commentsComponent()
+        newComment = newCommentForm {
+            commentCreatedListener = { comments.show(article.id!!) }
         }
         button("Edit", { EditArticleView.navigateTo(article.id!!) }) {
             styleName = ValoTheme.BUTTON_LINK
@@ -52,18 +39,7 @@ class ArticleView: VerticalLayout(), View {
         title.value = article.title
         text.value = article.text
         comments.show(article.id!!)
-    }
-    private fun createComment() {
-        val comment = Comment()
-        if (!commentBinder.validate().isOk || !commentBinder.writeBeanIfValid(comment)) {
-            createComment.componentError = UserError("There are invalid fields")
-        } else {
-            createComment.componentError = null
-            comment.article = article
-            db { em.persist(comment) }
-            comments.show(article.id!!)
-            commentBinder.readBean(Comment())  // this clears the comment fields
-        }
+        newComment.article = article
     }
 
     companion object {
@@ -84,4 +60,5 @@ private class CommentsComponent : Label() {
         })
     }
 }
-private fun HasComponents.comments(block: CommentsComponent.()->Unit = {}) = init(CommentsComponent(), block)
+// the extension function which will allow us to use CommentsComponent inside a DSL
+private fun HasComponents.commentsComponent(block: CommentsComponent.()->Unit = {}) = init(CommentsComponent(), block)
