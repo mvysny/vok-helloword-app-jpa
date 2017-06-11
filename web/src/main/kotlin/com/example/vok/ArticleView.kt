@@ -66,7 +66,7 @@ class ArticleView: VerticalLayout(), View {
     }
     private fun refreshComments() {
         comments.html(db {
-            // workaround to avoid Hibernate's LazyInitializationException on collections...
+            // force-update the comments list.
             Article.find(article.id!!)!!.comments.joinToString("") { comment ->
                 "<p><strong>Commenter:</strong>${comment.commenter}</p><p><strong>Comment:</strong>${comment.body}</p>"
             }
