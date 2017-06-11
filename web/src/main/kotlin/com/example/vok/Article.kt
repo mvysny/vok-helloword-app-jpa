@@ -1,5 +1,6 @@
 package com.example.vok
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.github.vok.framework.db
 import org.hibernate.annotations.Cascade
 import org.hibernate.validator.constraints.Length
@@ -20,6 +21,7 @@ data class Article(
         var text: String? = null
 ) : Serializable {
 
+    @JsonIgnore
     @OneToMany(mappedBy = "article", cascade = arrayOf(CascadeType.REMOVE))
     var comments: List<Comment> = mutableListOf()
 
