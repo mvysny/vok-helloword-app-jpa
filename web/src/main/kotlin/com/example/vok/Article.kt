@@ -19,7 +19,7 @@ data class Article(
 
         var text: String? = null,
 
-        @OneToMany(mappedBy = "article")
+        @OneToMany(mappedBy = "article", cascade = arrayOf(CascadeType.REMOVE))
         var comments: List<Comment> = mutableListOf()
 ) : Serializable {
     companion object {

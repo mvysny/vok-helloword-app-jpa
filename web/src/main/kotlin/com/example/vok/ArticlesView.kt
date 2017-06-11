@@ -26,7 +26,7 @@ class ArticlesView: VerticalLayout(), View {
             addColumn({ "Edit" }, ButtonRenderer<Article>({ event -> EditArticleView.navigateTo(event.item.id!!) }))
             addColumn({ "Destroy" }, ButtonRenderer<Article>({ event ->
                 confirmDialog {
-                    db { em.deleteById<Article>(event.item.id!!) }
+                    db { em.delete(event.item) }
                     this@grid.dataProvider.refreshAll()
                 }
             }))
