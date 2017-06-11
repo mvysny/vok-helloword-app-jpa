@@ -6,6 +6,7 @@ import com.vaadin.navigator.View
 import com.vaadin.navigator.ViewChangeListener
 import com.vaadin.server.UserError
 import com.vaadin.ui.Button
+import com.vaadin.ui.HasComponents
 import com.vaadin.ui.Label
 import com.vaadin.ui.VerticalLayout
 import com.vaadin.ui.themes.ValoTheme
@@ -15,7 +16,7 @@ class ArticleView: VerticalLayout(), View {
     private lateinit var article: Article
     private lateinit var title: Label
     private lateinit var text: Label
-    private val comments: Label
+    private val comments: CommentsComponent
     private val commentBinder = beanValidationBinder<Comment>()
     private lateinit var createComment: Button
     init {
@@ -27,7 +28,7 @@ class ArticleView: VerticalLayout(), View {
                 caption = "Text:"
             }
         }
-        comments = label { caption = "Comments"; isMargin = false }
+        comments = comments()
         formLayout {
             caption = "Add a comment:"
             textField("Commenter:") {
@@ -50,7 +51,7 @@ class ArticleView: VerticalLayout(), View {
         article = Article.find(articleId)!!
         title.value = article.title
         text.value = article.text
-        refreshComments()
+        comments.show(article.id!!)
     }
     private fun createComment() {
         val comment = Comment()
@@ -60,19 +61,27 @@ class ArticleView: VerticalLayout(), View {
             createComment.componentError = null
             comment.article = article
             db { em.persist(comment) }
-            refreshComments()
+            comments.show(article.id!!)
             commentBinder.readBean(Comment())  // this clears the comment fields
         }
     }
-    private fun refreshComments() {
-        comments.html(db {
-            // force-update the comments list.
-            Article.find(article.id!!)!!.comments.joinToString("") { comment ->
-                "<p><strong>Commenter:</strong>${comment.commenter}</p><p><strong>Comment:</strong>${comment.body}</p>"
-            }
-        })
-    }
+
     companion object {
         fun navigateTo(articleId: Long) = navigateToView<ArticleView>(articleId.toString())
     }
 }
+
+private class CommentsComponent : Label() {
+    init {
+        caption = "Comments"
+    }
+    fun show(articleId: Long) {
+        html(db {
+            // force-update the comments list.
+            Article.find(articleId)!!.comments.joinToString("") { comment ->
+                "<p><strong>Commenter:</strong>${comment.commenter}</p><p><strong>Comment:</strong>${comment.body}</p>"
+            }
+        })
+    }
+}
+private fun HasComponents.comments(block: CommentsComponent.()->Unit = {}) = init(CommentsComponent(), block)
