@@ -1,6 +1,5 @@
 package com.example.vok
 
-import com.github.vok.framework.db
 import com.github.vok.karibudsl.*
 import com.vaadin.navigator.*
 import com.vaadin.ui.*
@@ -24,7 +23,7 @@ class ArticleView: VerticalLayout(), View {
         }
         comments = commentsComponent()
         newComment = newCommentForm {
-            commentCreatedListener = { comments.show(article.id!!) }
+            commentCreatedListener = { comments.refresh() }
         }
         button("Edit", { EditArticleView.navigateTo(article.id!!) }) {
             styleName = ValoTheme.BUTTON_LINK
@@ -38,7 +37,7 @@ class ArticleView: VerticalLayout(), View {
         article = Article.find(articleId)!!
         title.value = article.title
         text.value = article.text
-        comments.show(article.id!!)
+        comments.articleId = article.id!!
         newComment.article = article
     }
 
@@ -46,19 +45,3 @@ class ArticleView: VerticalLayout(), View {
         fun navigateTo(articleId: Long) = navigateToView<ArticleView>(articleId.toString())
     }
 }
-
-private class CommentsComponent : Label() {
-    init {
-        caption = "Comments"
-    }
-    fun show(articleId: Long) {
-        html(db {
-            // force-update the comments list.
-            Article.find(articleId)!!.comments.joinToString("") { comment ->
-                "<p><strong>Commenter:</strong>${comment.commenter}</p><p><strong>Comment:</strong>${comment.body}</p>"
-            }
-        })
-    }
-}
-// the extension function which will allow us to use CommentsComponent inside a DSL
-private fun HasComponents.commentsComponent(block: CommentsComponent.()->Unit = {}) = init(CommentsComponent(), block)
