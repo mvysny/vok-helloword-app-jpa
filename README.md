@@ -1,18 +1,20 @@
-[![Build Status](https://travis-ci.org/mvysny/vok-helloword-app.svg?branch=master)](https://travis-ci.org/mvysny/vok-helloword-app)
+[![Build Status](https://travis-ci.org/mvysny/vok-helloword-app-jpa.svg?branch=master)](https://travis-ci.org/mvysny/vok-helloword-app-jpa)
 
 # Vaadin-on-Kotlin Example App / Archetype
 
 Template for a simple Vaadin-on-Kotlin application that only requires a Servlet 3.0 container to run.
 Just clone this repo and start building your awesome app!
 
-To start creating your app, just follow the [Getting Started tutorial](http://www.vaadinonkotlin.eu/gettingstarted.html).
+To start creating your app, just follow the [Getting Started tutorial](http://www.vaadinonkotlin.eu/gettingstartedjpa.html).
+
+Note: this example app uses JPA. It is recommended to use the [Vaadin-on-Kotlin Example App Sql2o](https://github.com/mvysny/vok-helloword-app) instead since it's way simpler
 
 # Getting Started
 
 To quickly start the app, make sure that you have Java 8 JDK installed. Then, just type this into your terminal:
 
 ```bash
-git clone https://github.com/mvysny/vok-helloword-app
+git clone https://github.com/mvysny/vok-helloword-app-jpa
 cd vok-helloworld-app
 ./gradlew build web:appRun
 ```
@@ -22,7 +24,7 @@ The app will be running on http://localhost:8080/
 ## The 'complete' sources
 
 You can switch the git branch from 'master' to ['complete'](../../tree/complete), to see the outcome application of the
-[Vaadin-on-Kotlin Getting Started](http://www.vaadinonkotlin.eu/gettingstarted.html) tutorial. 
+[Vaadin-on-Kotlin Getting Started](http://www.vaadinonkotlin.eu/gettingstartedjpa.html) tutorial. 
 
 # Workflow
 
